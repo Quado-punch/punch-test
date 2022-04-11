@@ -11,10 +11,19 @@ firebase-database.js
 firebase-app.js
 fontawesome-webfont.woff
 HackTimerWorker.min.js
+linkedin.js
+pinterest2.js
+tags-input.css
+tags-input.js
+tinder2.js
+
 
 
 #Suspected redundant files to be checked
 content.js
 content_linkedin.js
+tiktok.js
+twitter.js
+
 
 

@@ -21,10 +21,7 @@ $(document).ready(function() {
     console.log("SETUp!");
     if (window.location.href.includes("videos")) {
         window.scrollTo(0, document.body.scrollHeight);
-                    SendMessage("GetPinterest", "target","");
-
-
-
+        SendMessage("GetPinterest", "target","");
       //  scrollTop(20);
     }
 });
@@ -71,12 +68,7 @@ function OnMessageReceive(msg) {
                 //console.log(videos[kk].getAttribute("class"));
                 if (videos[kk].getAttribute("class").includes("result-item")) {
                     //console.log(videos[kk].getAttribute("href"));
-
                     SendMessage("PinterestTarget", "target", videos[kk].getAttribute("href"));
-
-
-
-
                 }
             }
 
