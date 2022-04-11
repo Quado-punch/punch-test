@@ -1,0 +1,20 @@
+#Redundant files deleted:
+botstar.js
+buy.js
+chrome.png
+content_template.js
+content_tinder.js
+index_instoo.js
+index_free.js
+firebase.js
+firebase-database.js
+firebase-app.js
+fontawesome-webfont.woff
+HackTimerWorker.min.js
+
+
+#Suspected redundant files to be checked
+content.js
+content_linkedin.js
+
+

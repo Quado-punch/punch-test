@@ -4,9 +4,9 @@
   "name": "Zwilt",
   "description": "Zwilt is a free service that lets you grow your followers and connections on social media faster over time. We interact with accounts likely to organically grow your own by simulating human behavior in your browser.",
   "version": "14.3.6",
-  "icons": { "512": "icon.png" },
+  "icons": { "512": "assets/images/icon.png" },
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "assets/images/icon.png"
   },
   "content_security_policy": "script-src 'self';  object-src 'self'",
   "content_scripts": [

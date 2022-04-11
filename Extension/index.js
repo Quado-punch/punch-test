@@ -630,7 +630,7 @@ $(document).ready(function () {
   }, 10000);
 
   $(".backup_picture").on("error", function () {
-    $(this).attr("src", "icon.png");
+    $(this).attr("src", "assets/images/icon.png");
   });
   user_plan = $("#plan").attr("name");
   $("#sidebar-mosaic").click(function () {
@@ -3653,7 +3653,7 @@ $(document).ready(function () {
       });
 
       $(".backup_picture").on("error", function () {
-        $(this).attr("src", "icon.png");
+        $(this).attr("src", "assets/images/icon.png");
       });
 
       if (
@@ -3662,9 +3662,9 @@ $(document).ready(function () {
         follow_val == true ||
         unfollow_val == true
       ) {
-        $("#progress").attr("src", "disk.gif");
+        $("#progress").attr("src", "assets/images/disk.gif");
       } else {
-        $("#progress").attr("src", "icon.gif");
+        $("#progress").attr("src", "assets/images/icon.gif");
       }
 
       if (paid_sub) {
@@ -4711,9 +4711,9 @@ $(document).ready(function () {
           follow_val == true ||
           unfollow_val == true
         ) {
-          $("#progress").attr("src", "disk.gif");
+          $("#progress").attr("src", "assets/images/disk.gif");
         } else {
-          $("#progress").attr("src", "icon.gif");
+          $("#progress").attr("src", "assets/images/icon.gif");
         }
       });
       $("#set-like-check").click(function () {
@@ -4730,9 +4730,9 @@ $(document).ready(function () {
           follow_val == true ||
           unfollow_val == true
         ) {
-          $("#progress").attr("src", "disk.gif");
+          $("#progress").attr("src", "assets/images/disk.gif");
         } else {
-          $("#progress").attr("src", "icon.gif");
+          $("#progress").attr("src", "assets/images/icon.gif");
         }
       });
 
@@ -4745,9 +4745,9 @@ $(document).ready(function () {
           follow_val == true ||
           unfollow_val == true
         ) {
-          $("#progress").attr("src", "disk.gif");
+          $("#progress").attr("src", "assets/images/disk.gif");
         } else {
-          $("#progress").attr("src", "icon.gif");
+          $("#progress").attr("src", "assets/images/icon.gif");
         }
 
         if (like_val != true) {
@@ -4771,9 +4771,9 @@ $(document).ready(function () {
           follow_val == true ||
           unfollow_val == true
         ) {
-          $("#progress").attr("src", "disk.gif");
+          $("#progress").attr("src", "assets/images/disk.gif");
         } else {
-          $("#progress").attr("src", "icon.gif");
+          $("#progress").attr("src", "assets/images/icon.gif");
         }
         if (comment_val) {
           SetStoryValue($(this).is(":checked"));
@@ -4816,9 +4816,9 @@ $(document).ready(function () {
           follow_val == true ||
           unfollow_val == true
         ) {
-          $("#progress").attr("src", "disk.gif");
+          $("#progress").attr("src", "assets/images/disk.gif");
         } else {
-          $("#progress").attr("src", "icon.gif");
+          $("#progress").attr("src", "assets/images/icon.gif");
         }
       });
 
@@ -4830,9 +4830,9 @@ $(document).ready(function () {
         follow_val == true ||
         unfollow_val == true
       ) {
-        $("#progress").attr("src", "disk.gif");
+        $("#progress").attr("src", "assets/images/disk.gif");
       } else {
-        $("#progress").attr("src", "icon.gif");
+        $("#progress").attr("src", "assets/images/icon.gif");
       }
 
       SendMessage("RequestSettings", "", "");
@@ -5663,9 +5663,9 @@ function OnMessageReceive(msg) {
       follow_val == true ||
       unfollow_val == true
     ) {
-      $("#progress").attr("src", "disk.gif");
+      $("#progress").attr("src", "assets/images/disk.gif");
     } else {
-      $("#progress").attr("src", "icon.gif");
+      $("#progress").attr("src", "assets/images/icon.gif");
     }
   } else if (msg.Tag == "UserLoggedOut") {
     logged_in = false;
