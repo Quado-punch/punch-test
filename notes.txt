@@ -15,7 +15,7 @@ linkedin.js
 pinterest2.js
 tags-input.css
 tags-input.js
-tinder2.js
+bootstrap-slider-min.js
 
 
 
