@@ -1,4 +1,5 @@
 #Redundant files deleted:
+
 botstar.js
 buy.js
 chrome.png
@@ -16,14 +17,10 @@ pinterest2.js
 tags-input.css
 tags-input.js
 bootstrap-slider-min.js
+bootstrap.min.js
 
 
 
-#Suspected redundant files to be checked
-content.js
-content_linkedin.js
-tiktok.js
-twitter.js
 
 
 
