@@ -10,61 +10,84 @@
   },
   "content_security_policy": "script-src 'self';  object-src 'self'",
   "content_scripts": [
-  {
-    "matches": ["*://*.instagram.com/*"],
+    {
+      "matches": ["*://*.instagram.com/*"],
 
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "/controller/content.js"]
-  },
- {
-    "matches": ["*://*.tinder.com/*"],
+      "css": [],
+      "js": ["libs/jquery-3.5.1.min.js", "/controller/content.js"]
+    },
+    {
+      "matches": ["*://*.tinder.com/*"],
 
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/tinder2.js"]
-  },
- {
-    "matches": ["*://*.linkedin.com/*"],
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/TinderContent.js"
+      ]
+    },
+    {
+      "matches": ["*://*.linkedin.com/*"],
 
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/content_linkedin.js"]
-  },
- {
-   "matches": ["*://*.pinterest.com/*", "*://*.pinterest.co.uk/*"],
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/pinterest.js"]
-  },
- {
-    "matches": ["*://*.tiktok.com/*"],
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/LinkedinContent.js"
+      ]
+    },
+    {
+      "matches": ["*://*.pinterest.com/*", "*://*.pinterest.co.uk/*"],
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/PinterestContent.js"
+      ]
+    },
+    {
+      "matches": ["*://*.tiktok.com/*"],
 
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/tiktok.js"]
-  },
-     {
-    "matches": ["*://*.facebook.com/*"],
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/TiktokContent.js"
+      ]
+    },
+    {
+      "matches": ["*://*.facebook.com/*"],
 
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/facebook.js"]
-  },
-
-   {
-    "matches": ["*://*.twitter.com/*"],
-
-    "css": [],
-    "js": ["libs/jquery-3.5.1.min.js", "controller/twitter.js"]
-  }
-],
-
-  "background": {
-      "scripts": ["libs/jquery-3.5.1.min.js", "background.js"]
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/FacebookContent.js"
+      ]
     },
 
+    {
+      "matches": ["*://*.twitter.com/*"],
+
+      "css": [],
+      "js": [
+        "libs/jquery-3.5.1.min.js",
+        "controller/ContentClass.js",
+        "controller/TwitterContent.js"
+      ]
+    }
+  ],
+
+  "background": {
+    "scripts": ["libs/jquery-3.5.1.min.js", "background.js"]
+  },
+
   "permissions": [
-    "tabs", "*://*.instagram.com/*",
+    "tabs",
+    "*://*.instagram.com/*",
     "storage",
-        "webRequest",
-"downloads",
-    "https://instoo.com/" 
-     ]
+    "webRequest",
+    "downloads",
+    "https://instoo.com/"
+  ]
 }
-
-

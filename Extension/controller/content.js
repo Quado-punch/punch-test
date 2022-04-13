@@ -61,6 +61,7 @@ function getCookie(a) {
     }
   return n;
 }
+
 function getSharedData() {}
 function CreateComPort() {
   ComPort = chrome.runtime.connect({ name: "instafollow213content" });
