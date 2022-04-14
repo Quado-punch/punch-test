@@ -38,8 +38,11 @@ class InstagramContent extends ContentClass {
     this.commented = commented;
     this.pic_url = pic_url;
     this.startedFollowLike = startedFollowLike;
-    this.startDm = startDm;
+    this.StartDm = StartDm;
   }
+
+  user_id;
+
 
   pause() {
     this.SendMessage("Pause", "pause", "");
@@ -51,12 +54,8 @@ class InstagramContent extends ContentClass {
     });
   }
 
-  CreateComport() {
-    this.ComPort = chrome.runtime.connect({ name: "instafollow213content" });
-    this.ComPort.onMessage.addListener(this.OnMessageReceive);
-  }
-
-  OnMessageReceive(a) {
+  OnMessageReceive(a, context) {
+    console.log("from onMessage", window.OurContext)
     if ("FollowUser" == a.Tag) FollowUser(a.User);
     else if ("CollectFromAccount" == a.Tag) collectFromAccount(a.account_name);
     else if ("GatherAccountTargets" == a.Tag) {
@@ -3244,11 +3243,11 @@ class InstagramContent extends ContentClass {
           (CurrentUser = { CSRF: d }),
           (h = getRandomInt(1e3, 3500)),
           (v = getRandomInt(1e3, 3500)),
-          (user_id = n),
+          (this.user_id = n),
           (CurrentUser.user_id = n),
           (CurrentUser.user_pic_url = "assets/images/icon.png"),
           (CurrentUser.username = window.location.href.split("/")[3]),
-          this.SendMessage("CurrentUserUpdate", "User", CurrentUser),
+          window.OurContext.SendMessage("CurrentUserUpdate", "User", CurrentUser),
           setTimeout(function () {
             for (
               var m = document.getElementsByTagName("a"), G = 0;
@@ -3306,7 +3305,7 @@ class InstagramContent extends ContentClass {
         : "CollectJobStatus" == a.Tag
         ? this.OnReceiveCollectJobStatus(a.Status)
         : "SendUserHeader" == a.Tag
-        ? this.RetriveCurrentUserInfo(a.firstTime)
+        ? window.OurContext.RetriveCurrentUserInfo(a.firstTime)
         : "DoCollectFollowings" == a.Tag
         ? this.DoCollectFollowings(a.Job)
         : "UnfollowUser" == a.Tag
@@ -3389,13 +3388,13 @@ class InstagramContent extends ContentClass {
       0 < n.length && SendMessage("AddUsers", "Users", n);
     });
   }
-  user_id;
+
   RetriveUserHeaders() {
     var a = getCookie("csrftoken"),
       n = getCookie("ds_user_id");
     CurrentUser = { CSRF: a };
-    SendMessage("GetUserHeader", "User", n);
-    user_id = n;
+    this.SendMessage("GetUserHeader", "User", n);
+    this.user_id = n;
   }
   DoCollectFollowings(a) {
     this.CollectFollowings(a.user_id, a.cursor_key, function (n) {
@@ -3408,6 +3407,7 @@ class InstagramContent extends ContentClass {
   }
 
   RetriveCurrentUserInfo(a) {
+    console.log("retrieve info ran");
     var n = "",
       d = document.getElementsByTagName("a");
     a = getCookie("csrftoken");
@@ -3415,7 +3415,7 @@ class InstagramContent extends ContentClass {
     CurrentUser = { CSRF: a };
     var M = getRandomInt(1e3, 3500);
     a = getRandomInt(1e3, 3500);
-    user_id = V;
+    this.user_id = V;
     window.location.href.includes("stories") &&
       (window.location.href = "https://instagram.com");
     for (var B = 0; B < d.length; B++)
@@ -4001,9 +4001,10 @@ class InstagramContent extends ContentClass {
       M++
     );
   }
+
 }
 
-var ComPort;
+var Comport;
 var CurrentUser;
 var usern;
 var commented;
@@ -4019,8 +4020,8 @@ var instagramContent = new InstagramContent({
   tag_dict: {},
   account_dict: {},
   image_src: "",
-  story_sect: false,
-  name: "instagram",
+  story_set: false,
+  name: "instafollow213content",
   startedFollowLike: !1,
   logs: "",
   usern: usern,
@@ -4028,8 +4029,10 @@ var instagramContent = new InstagramContent({
   pic_url: "",
 });
 
-$(document).ready(function () {
-  instagramContent.CreateComPort();
+$(document).ready(() => {
+  window.OurContext = instagramContent;
+  console.log("from home: ", instagramContent)
+  instagramContent.CreateComport();
   instagramContent.RetriveUserHeaders();
   0 == instagramContent.story_set &&
     window.location.href.includes("stories") &&

@@ -41,6 +41,7 @@ $(document).ready(function () {
     window.location.href.includes("direct") &&
     SendMessage("GetDM", "Error", "No BUttons");
 });
+
 function getUserData(a) {
   $.get("https://www.instagram.com/" + a + "/?__a=1", function (n, d) {
     SendMessage("userData", "User", n.graphql.user);
@@ -72,11 +73,13 @@ function IsUserInWhitelist(a, n) {
   return !1;
 }
 function SendMessage(a, n, d) {
+  console.log("message is sent")
   a = { Tag: a };
   a[n] = d;
   ComPort.postMessage(a);
 }
 function OnMessageReceive(a) {
+  console.log("Message is recieved")
   if ("FollowUser" == a.Tag) FollowUser(a.User);
   else if ("CollectFromAccount" == a.Tag) collectFromAccount(a.account_name);
   else if ("GatherAccountTargets" == a.Tag) {

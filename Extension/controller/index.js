@@ -5184,11 +5184,13 @@ function CreateComPort() {
 }
 
 function SendMessage(tag, msgTag, msg) {
+  console.log("Clicked");
   var sendObj = {
     Tag: tag,
   };
   sendObj[msgTag] = msg;
   if (typeof ComPort != "undefined") {
+   
     ComPort.postMessage(sendObj);
   }
 }

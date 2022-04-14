@@ -355,9 +355,9 @@ chrome.runtime.onConnect.addListener(function (a) {
         ComPortContent =
           0 == AllContentPorts.length ? null : AllContentPorts[0];
       }),
-      a.onMessage.addListener(function (b) {
+      a.onMessage.addListener(function (b,context) {
         ComPortContent = a;
-        OnMessageReceive(b);
+        OnMessageReceive(b,context);
       }))
     : "linkedin" == a.name
     ? ((ComPortLinkedin = a),
@@ -442,6 +442,8 @@ chrome.runtime.onConnect.addListener(function (a) {
         ComPortIndex = null;
       }));
 });
+
+
 chrome.runtime.onInstalled.addListener(function (a) {
   "install" == a.reason &&
     (chrome.tabs.create(
@@ -590,6 +592,7 @@ function logTabsTikTok(a) {
     }
   }
 }
+
 function logTabsDM(a) {
   for (var b = 0; b < a.length; b++) {
     var c = encodeURIComponent(a[b].url);
@@ -666,6 +669,7 @@ function logTabsDM(a) {
     }
   }
 }
+
 function isEmoji(a) {
   return a.match(
     "(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[#-9]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26ff]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])"
@@ -683,16 +687,17 @@ function ConvertToCSV(a) {
   }
   return b;
 }
-function OnMessageReceive(a) {
-  console.log(a);
+function OnMessageReceive(a, context) {
+  console.log(a, context);
   if ("AddUsers" == a.Tag) AddUsersToDatabase(a.Users);
   else if ("LinkedinLead" == a.Tag)
     linkedin_data.push(a.User), OnLinkedinLike(a.User), SaveDatabase();
   else if ("loadLocal" == a.Tag) LoadDatabase();
   else if ("PostStats" == a.Tag) user_stats.push(a.data);
-  else if ("GetUserHeader" == a.Tag)
-    SendMessage("SendUserHeader", "User", CurrentUser, ComPortIndex);
-  else if ("ZeroHour" == a.Tag) hoursLeft = 0;
+  else if ("GetUserHeader" == a.Tag) {
+    console.log("this runs in the background",context);
+    SendMessage("SendUserHeader", "User", CurrentUser, ComPortIndex, context);
+  } else if ("ZeroHour" == a.Tag) hoursLeft = 0;
   else if ("BadTarget" == a.Tag) {
     AccountTargets = AccountTargets.filter(function (e) {
       return e !== last_story;
@@ -1116,11 +1121,13 @@ function OnMessageReceive(a) {
     });
   else if ("myCollectJob" == a.Tag) myCollectJob = a.Job;
   else if ("GetTopFollowers" != a.Tag)
-    if ("GetStory" == a.Tag)
+    if ("GetStory" == a.Tag) {
+      console.log("it is GetStory");
       SendMessage("UpdateStory", "story", last_story, ComPortContent);
-    else if ("GetDM" == a.Tag)
+    } else if ("GetDM" == a.Tag) {
+      console.log("The message is picked here");
       SendMessage("DODM", "story", savedDM, ComPortContent), SaveDatabase();
-    else if ("SetReactMode" == a.Tag) (StartReact = a.reacts), SaveDatabase();
+    } else if ("SetReactMode" == a.Tag) (StartReact = a.reacts), SaveDatabase();
     else if ("DoneLinkedin" == a.Tag)
       TotalLinkedins.push(a.target), SaveDatabase();
     else if ("DoneTwitter" == a.Tag)
@@ -1820,12 +1827,15 @@ function OnMessageReceive(a) {
                 : "ClearPools" == a.Tag &&
                   (ResetPools(), ResetPools(), SaveDatabase(), SendSettings()));
 }
-function SendMessage(a, b, c, d) {
-  d && ((a = { Tag: a }), (a[b] = c), d.postMessage(a));
+function SendMessage(a, b, c, d, context) {
+  console.log({ a, context});
+  d && ((a = { Tag: a }), (a[b] = c), d.postMessage(a,context));
 }
+
 function RemoveCollectJobByUserSelf(a) {
   run_self = !1;
 }
+
 function RemoveCollectJobByUser(a) {
   for (var b = -1, c = 0; c < CollectJobs.length; c++)
     if (CollectJobs[c].user_id == a) {
@@ -1835,6 +1845,7 @@ function RemoveCollectJobByUser(a) {
   0 <= b && CollectJobs.splice(b, 1);
   SaveDatabase();
 }
+
 function IsCollectJobAvailableForUser(a) {
   for (var b = 0; b < CollectJobs.length; b++)
     if (CollectJobs[b].user_id == a) return !0;
@@ -1947,6 +1958,7 @@ function HandleErrors(a) {
       SendMessage("Error", "type", "CommentError", ComPortIndex),
       SendSettings());
 }
+
 function SetMinMax(a, b, c) {
   return Math.min(Math.max(a, b), c);
 }

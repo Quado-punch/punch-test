@@ -10,7 +10,7 @@ class ContentClass {
     tag_dict,
     account_dict,
     image_src,
-    story_sect,
+    story_set,
     name,
   }) {
     this.Comport = Comport;
@@ -23,11 +23,12 @@ class ContentClass {
     this.tag_dict = tag_dict;
     this.account_dict = account_dict;
     this.image_src = image_src;
-    this.story_sect = story_sect;
+    this.story_set = story_set;
     this.name = name;
   }
 
   CreateComport() {
+    console.log("the current context: ", window.OurContext);
     this.Comport = chrome.runtime.connect({
       name: this.name,
     });
@@ -103,4 +104,3 @@ function IsUserInWhitelist(a, n) {
   for (var d = 0; d < n.length; d++) if (n[d].username == a) return !0;
   return !1;
 }
-
